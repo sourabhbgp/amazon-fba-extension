@@ -1,6 +1,28 @@
+import {
+  getFilteredData,
+  getOfferData,
+  getPriceData,
+  getSalesRankData,
+} from "../utils/filter";
 import { isAmazonProductUrl, isAmazonCOM } from "../utils/helper";
+import { getASINfromURL } from "../utils/scrap";
 
 let current_url: string;
+const KEEPA_API = "https://api.keepa.com";
+const KEEPA_PRIVATE_KEY =
+  "9dd96r1pbi6d686ucbg1p888311v158tbq4bfugggjj0a9khic62nlhldcte8tr5";
+const DOMAIN_KEY = 1;
+
+const getKeepaProductData = async (asin: string) => {
+  try {
+    const response = await fetch(
+      `${KEEPA_API}/product?key=${KEEPA_PRIVATE_KEY}&domain=${DOMAIN_KEY}&asin=${asin}&stats=180&offers=40&only-live-offers=1`
+    );
+    if (response.ok) return await response.json();
+  } catch (err) {
+    throw new Error(err);
+  }
+};
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   let STATUS = changeInfo.status;
@@ -10,7 +32,27 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       if (current_url !== tab.url) {
         current_url = tab.url;
         if (isAmazonCOM(current_url) && isAmazonProductUrl(current_url)) {
-          console.log(current_url);
+          let asin = getASINfromURL(current_url);
+          if (asin) {
+            let data = await getKeepaProductData(asin);
+
+            if (data && data.products.length) {
+              let finalData = getFilteredData(data.products[0], asin);
+
+              chrome.tabs.query({}, function (tabs) {
+                let current = tabs.filter((d) => d.url === current_url);
+                if (current[0]) {
+                  if (current[0].id) {
+                    chrome.tabs.sendMessage(
+                      current[0].id,
+                      { finalData },
+                      (response) => {}
+                    );
+                  }
+                }
+              });
+            }
+          }
         }
       }
     }
