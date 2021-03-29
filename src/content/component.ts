@@ -27,8 +27,16 @@ export const createKeyValue = (
   Key.innerText = `${data.key} :`;
   Container.appendChild(Key);
 
-  const Value = document.createElement("span");
+  const Value = document.createElement("a");
   Value.innerText = data.value as string;
+  Value.addEventListener("click", () => {
+    navigator.clipboard.writeText(data.value as string).then(
+      () => {
+        // BUTTON.innerText = "Copied";
+      },
+      () => console.log("Copy failed")
+    );
+  });
   Container.appendChild(Value);
   return Container;
 };

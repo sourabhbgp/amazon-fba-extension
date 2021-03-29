@@ -10,12 +10,12 @@ import {
   ASIN,
 } from "./model";
 
-export const getOfferData = (data: Array<offer>): finalOffer => {
+export const getOfferData = (
+  data: Array<offer>,
+  statsData: stats
+): finalOffer => {
   let totalFBA = filter(data, (d) => d.isFBA && d.condition === 1);
-  let totalFBM = filter(
-    data,
-    (d) => !d.isFBA && d.condition === 1 && !d.isAmazon
-  );
+  let totalFBM = statsData.offerCountFBM;
 
   let lowestFBA: number = 0;
   let totalcomp: number = 0;
@@ -41,7 +41,7 @@ export const getOfferData = (data: Array<offer>): finalOffer => {
     });
 
     return {
-      totalFBM: totalFBM.length,
+      totalFBM,
       totalFBA: totalFBA.length,
       lowestFBA,
       rise5Percent: rise_price,
@@ -49,7 +49,7 @@ export const getOfferData = (data: Array<offer>): finalOffer => {
     };
   } else
     return {
-      totalFBM: totalFBA.length,
+      totalFBM,
       totalFBA: 0,
       rise5Percent: 0,
       lowestFBA,
@@ -110,7 +110,7 @@ export const getFilteredData = (
   asin: string
 ): finalData => {
   return {
-    ...getOfferData(data.offers),
+    ...getOfferData(data.offers, data.stats),
     ...getSalesRankData(data.stats),
     ...getPriceData(data.stats),
     ASIN: asin,

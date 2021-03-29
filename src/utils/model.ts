@@ -9,6 +9,8 @@ export interface stats {
   avg90: number[];
   avg180: number[];
   salesRankDrops30: number;
+  offerCountFBM: number;
+  offerCountFBA: number;
 }
 
 export interface finalOffer {
