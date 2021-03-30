@@ -92,12 +92,12 @@ export const getPriceData = (data: stats): finalPrice => {
 
   let count: number = 0;
 
-  if (data.avg180[0] > 0) {
-    obj.avgPrice180 = data.avg180[0];
+  if (data.avg180[1] > 0) {
+    obj.avgPrice180 = data.avg180[1];
     ++count;
   }
-  if (data.avg90[0] > 0) {
-    obj.avgPrice90 = data.avg90[0];
+  if (data.avg90[1] > 0) {
+    obj.avgPrice90 = data.avg90[1];
     ++count;
   }
   if (count) obj.avgPrice = (obj.avgPrice180 + obj.avgPrice90) / count;
