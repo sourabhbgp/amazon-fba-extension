@@ -14,7 +14,10 @@ export const getOfferData = (
   data: Array<offer>,
   statsData: stats
 ): finalOffer => {
-  let totalFBA = filter(data, (d) => d.isFBA && d.condition === 1);
+  let totalFBA = filter(
+    data,
+    (d) => (d.isFBA && d.condition === 1) || d.isAmazon
+  );
   let totalFBM = statsData.offerCountFBM;
 
   let lowestFBA: number = 0;
