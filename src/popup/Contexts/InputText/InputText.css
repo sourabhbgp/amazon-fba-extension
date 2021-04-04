@@ -1,0 +1,28 @@
+.input-wraper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+/* input {
+  width: 100%;
+  background: #ffffff;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 4px;
+  height: 2.5em !important;
+  font-size: 1em !important;
+  display: flex;
+  align-items: center;
+  outline: 0;
+  color: #8c8c8c;
+  border: 0;
+} */
+
+.is--error-focus,
+body .react-tel-input .is--error-focus {
+  border: 1px solid #f36414 !important;
+}
+* {
+  box-sizing: border-box;
+}

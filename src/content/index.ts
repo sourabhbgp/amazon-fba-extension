@@ -1,5 +1,11 @@
 import "../css/content.css";
-import { createColumn, createContainer, createKeyValue } from "./component";
+import {
+  createColumn,
+  createColumn2,
+  createContainer,
+  createKeyValue,
+  createKeyValue2,
+} from "./component";
 import { finalData } from "../utils/model";
 
 const UI_Render = (data: finalData): void => {
@@ -9,35 +15,45 @@ const UI_Render = (data: finalData): void => {
     const Container = createContainer();
 
     // ASIN Column
-    const ASIN_Column = createColumn();
-    const ASIN_Data = createKeyValue({ key: "ASIN", value: data.ASIN });
+    const ASIN_Column = createColumn2("Basic Info");
+    const ASIN_Data = createKeyValue2({ key: "ASIN", value: data.ASIN });
+    const TotalFBA_Data = createKeyValue2({
+      key: "Total FBA",
+      value: data.totalFBA,
+    });
+    const TotalFBM_Data = createKeyValue2({
+      key: "Total FBM",
+      value: data.totalFBM,
+    });
     if (ASIN_Data) ASIN_Column.appendChild(ASIN_Data);
+    if (TotalFBM_Data) ASIN_Column.appendChild(TotalFBM_Data);
+    if (TotalFBA_Data) ASIN_Column.appendChild(TotalFBA_Data);
     Container.appendChild(ASIN_Column);
 
-    // Total Seller Column
-    const TotalSeller_Column = createColumn();
-    const TotalFBA_Data = createKeyValue({ key: "FBA", value: data.totalFBA });
-    const TotalFBM_Data = createKeyValue({ key: "FBM", value: data.totalFBM });
-    if (TotalFBA_Data) TotalSeller_Column.appendChild(TotalFBA_Data);
-    if (TotalFBM_Data) TotalSeller_Column.appendChild(TotalFBM_Data);
-    Container.appendChild(TotalSeller_Column);
+    // // Total Seller Column
+    // const TotalSeller_Column = createColumn();
+    // const TotalFBA_Data = createKeyValue({ key: "FBA", value: data.totalFBA });
+    // const TotalFBM_Data = createKeyValue({ key: "FBM", value: data.totalFBM });
+    // if (TotalFBA_Data) TotalSeller_Column.appendChild(TotalFBA_Data);
+    // if (TotalFBM_Data) TotalSeller_Column.appendChild(TotalFBM_Data);
+    // Container.appendChild(TotalSeller_Column);
 
     // Sales Rank Column
-    const SalesRank_Column = createColumn();
-    const SalesRank90_Data = createKeyValue({
-      key: "SR-90",
+    const SalesRank_Column = createColumn2("Sales Rank");
+    const SalesRank90_Data = createKeyValue2({
+      key: "90 days",
       value: data.avgSalesRank90,
     });
-    const SalesRank180_Data = createKeyValue({
-      key: "SR-180",
+    const SalesRank180_Data = createKeyValue2({
+      key: "180 days",
       value: data.avgSalesRank180,
     });
-    const SalesRankAvg_Data = createKeyValue({
-      key: "SR-avg",
+    const SalesRankAvg_Data = createKeyValue2({
+      key: "average",
       value: data.avgSalesRank,
     });
-    const SalesRankDrop_Data = createKeyValue({
-      key: "SR-drop",
+    const SalesRankDrop_Data = createKeyValue2({
+      key: "drop (30)",
       value: data.salesRankDrops30,
     });
     if (SalesRank90_Data) SalesRank_Column.appendChild(SalesRank90_Data);
@@ -47,17 +63,17 @@ const UI_Render = (data: finalData): void => {
     Container.appendChild(SalesRank_Column);
 
     // Price Average Column
-    const PriceAvg_Column = createColumn();
-    const PriceAvg90_Data = createKeyValue({
-      key: "PA-90",
+    const PriceAvg_Column = createColumn2("Price Average");
+    const PriceAvg90_Data = createKeyValue2({
+      key: "90 days",
       value: (data.avgPrice90 / 100).toFixed(2),
     });
-    const PriceAvg180_Data = createKeyValue({
-      key: "PA-180",
+    const PriceAvg180_Data = createKeyValue2({
+      key: "180 days",
       value: (data.avgPrice180 / 100).toFixed(2),
     });
-    const PriceAvg_Data = createKeyValue({
-      key: "PA",
+    const PriceAvg_Data = createKeyValue2({
+      key: "average price",
       value: (data.avgPrice / 100).toFixed(2),
     });
     if (PriceAvg90_Data) PriceAvg_Column.appendChild(PriceAvg90_Data);
@@ -66,16 +82,16 @@ const UI_Render = (data: finalData): void => {
     Container.appendChild(PriceAvg_Column);
 
     // Lowest FBA and its Competitor Column
-    const FBA_Column = createColumn();
-    const LowestFBA_Data = createKeyValue({
+    const FBA_Column = createColumn2("FBA Info");
+    const LowestFBA_Data = createKeyValue2({
       key: "Lowest FBA",
       value: (data.lowestFBA / 100).toFixed(2),
     });
-    const Rise5cent_Data = createKeyValue({
+    const Rise5cent_Data = createKeyValue2({
       key: "5% Rise",
       value: (data.rise5Percent / 100).toFixed(2),
     });
-    const FBACompetitor_Data = createKeyValue({
+    const FBACompetitor_Data = createKeyValue2({
       key: "Competitor",
       value: data.totalcomp,
     });
@@ -88,8 +104,13 @@ const UI_Render = (data: finalData): void => {
   }
 };
 
-// Calling function on message from the background js
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  sendResponse({ message: "received" });
-  if (request.finalData) UI_Render(request.finalData);
+const main = () => {
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    sendResponse({ message: "received" });
+    if (request.finalData) UI_Render(request.finalData);
+  });
+};
+
+chrome.storage.sync.get(null, (data) => {
+  if (data.token) main();
 });

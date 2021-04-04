@@ -38,36 +38,39 @@ const getKeepaProductData = async (asin: string) => {
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   let STATUS = changeInfo.status;
+  chrome.storage.sync.get(null, async (data) => {
+    if (data.token) {
+      if (STATUS === "complete") {
+        if (tab.url) {
+          // if (current_url !== tab.url) {
+          current_url = tab.url;
+          if (isAmazonCOM(current_url) && isAmazonProductUrl(current_url)) {
+            let asin = getASINfromURL(current_url);
+            if (asin) {
+              // await getStockInfo();
+              let data = await getKeepaProductData(asin);
 
-  if (STATUS === "complete") {
-    if (tab.url) {
-      // if (current_url !== tab.url) {
-      current_url = tab.url;
-      if (isAmazonCOM(current_url) && isAmazonProductUrl(current_url)) {
-        let asin = getASINfromURL(current_url);
-        if (asin) {
-          // await getStockInfo();
-          let data = await getKeepaProductData(asin);
+              if (data && data.products.length) {
+                let finalData = getFilteredData(data.products[0], asin);
 
-          if (data && data.products.length) {
-            let finalData = getFilteredData(data.products[0], asin);
-
-            chrome.tabs.query({}, function (tabs) {
-              let current = tabs.filter((d) => d.url === current_url);
-              if (current[0]) {
-                if (current[0].id) {
-                  chrome.tabs.sendMessage(
-                    current[0].id,
-                    { finalData },
-                    (response) => {}
-                  );
-                }
+                chrome.tabs.query({}, function (tabs) {
+                  let current = tabs.filter((d) => d.url === current_url);
+                  if (current[0]) {
+                    if (current[0].id) {
+                      chrome.tabs.sendMessage(
+                        current[0].id,
+                        { finalData },
+                        (response) => {}
+                      );
+                    }
+                  }
+                });
               }
-            });
+            }
           }
+          // }
         }
       }
-      // }
     }
-  }
+  });
 });

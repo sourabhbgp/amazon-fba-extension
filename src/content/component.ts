@@ -19,12 +19,45 @@ export const createColumn = (): HTMLDivElement => {
   return Column;
 };
 
+export const createColumn2 = (name: string): HTMLDivElement => {
+  const Column = document.createElement("div");
+  Column.className = "column2";
+
+  const Name = document.createElement("span");
+  Name.innerText = `${name}`;
+
+  Column.appendChild(Name);
+  return Column;
+};
+
 export const createKeyValue = (
   data: keyValueData
 ): HTMLParagraphElement | null => {
   const Container = document.createElement("p");
   const Key = document.createElement("strong");
   Key.innerText = `${data.key} :`;
+  Container.appendChild(Key);
+
+  const Value = document.createElement("a");
+  Value.innerText = data.value as string;
+  Value.addEventListener("click", () => {
+    navigator.clipboard.writeText(data.value as string).then(
+      () => {
+        // BUTTON.innerText = "Copied";
+      },
+      () => console.log("Copy failed")
+    );
+  });
+  Container.appendChild(Value);
+  return Container;
+};
+
+export const createKeyValue2 = (
+  data: keyValueData
+): HTMLParagraphElement | null => {
+  const Container = document.createElement("p");
+  const Key = document.createElement("span");
+  Key.innerText = `${data.key}`;
   Container.appendChild(Key);
 
   const Value = document.createElement("a");

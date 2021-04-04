@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  /* font-size: 14px; */
+  word-wrap: break-word;
+  color: #504343;
+}
+
+.code {
+  padding-left: 6px;
+  border-left: 1px solid #ccc;
+  margin-left: 6px;
+  font-size: 13px;
+}
+
+.code:first-child {
+  padding-left: 0;
+  border-left: none;
+  margin-left: 0;
+}

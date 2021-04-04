@@ -1,12 +1,9 @@
 #fba-container {
-  width: auto;
-  border: 1px solid;
-  border-radius: 2px;
-  border-color: #ddd;
+  width: fit-content;
   background: #f7f8fa;
-  margin-top: 8px;
-  padding: 4px 0;
   margin-bottom: 8px;
+  border: 1px solid #81ecec;
+  display: flex;
 }
 #fba-container div.column {
   margin: 0px;
@@ -18,6 +15,61 @@
   flex-flow: row wrap;
   align-items: flex-start;
 }
+
+/* column 2 */
+
+#fba-container div.column2 {
+  margin: 0;
+  margin-right: 6px;
+  display: flex;
+  border-right: 1px solid #81ecec;
+  border-top: none;
+  padding: 8px;
+  font-size: 14px;
+  flex-flow: column;
+  align-items: flex-start;
+  background: #81ecec6b;
+}
+
+#fba-container div.column2:last-child {
+  border-right: none;
+  margin-right: 0;
+}
+
+#fba-container div.column2 > span {
+  width: 100%;
+  display: inline-block;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #999;
+  margin-bottom: 12px;
+}
+
+#fba-container div.column2 p {
+  padding-bottom: 6px;
+  margin: 0;
+  /* border-left: 1px solid #ccc; */
+  display: flex;
+  flex-flow: column-reverse;
+}
+
+#fba-container div.column2 p > a {
+  color: #444;
+  font-weight: 400;
+}
+
+#fba-container div.column2 p:last-child {
+  border-right: 0;
+}
+
+#fba-container div.column2 p > span {
+  padding-right: 4px;
+  color: #666;
+  width: fit-content;
+  min-width: fit-content;
+  font-size: 12px;
+}
+
+/*  ---- */
 
 #fba-container div.column:last-child {
   border-bottom: none;
