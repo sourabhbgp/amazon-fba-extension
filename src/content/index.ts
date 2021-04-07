@@ -85,11 +85,11 @@ const UI_Render = (data: finalData): void => {
     const FBA_Column = createColumn("FBA Info", "#e74c3c4f");
     const LowestFBA_Data = createKeyValue({
       key: "Lowest FBA",
-      value: `$${(data.lowestFBA / 100).toFixed(2)}`,
+      value: `$${numberWithCommas((data.lowestFBA / 100).toFixed(2))}`,
     });
     const Rise5cent_Data = createKeyValue({
       key: "5% Rise",
-      value: `$${(data.rise5Percent / 100).toFixed(2)}`,
+      value: `$${numberWithCommas((data.rise5Percent / 100).toFixed(2))}`,
     });
     const FBACompetitor_Data = createKeyValue({
       key: "Competitor",
