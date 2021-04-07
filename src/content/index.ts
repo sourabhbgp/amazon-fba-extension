@@ -1,6 +1,7 @@
 import "../css/content.css";
 import { createColumn, createContainer, createKeyValue } from "./component";
 import { finalData } from "../utils/model";
+import { numberWithCommas } from "../utils/helper";
 
 const UI_Render = (data: finalData): void => {
   const POINT = document.getElementById("centerCol") as HTMLDivElement;
@@ -41,19 +42,19 @@ const UI_Render = (data: finalData): void => {
     const SalesRank_Column = createColumn("Sales Rank", "#2ecc7159");
     const SalesRank90_Data = createKeyValue({
       key: "90 Days",
-      value: data.avgSalesRank90,
+      value: numberWithCommas(data.avgSalesRank90),
     });
     const SalesRank180_Data = createKeyValue({
       key: "180 Days",
-      value: data.avgSalesRank180,
+      value: numberWithCommas(data.avgSalesRank180),
     });
     const SalesRankAvg_Data = createKeyValue({
       key: "Average",
-      value: data.avgSalesRank,
+      value: numberWithCommas(Math.round(data.avgSalesRank)),
     });
     const SalesRankDrop_Data = createKeyValue({
       key: "Drop (30)",
-      value: data.salesRankDrops30,
+      value: numberWithCommas(data.salesRankDrops30),
     });
     if (SalesRank90_Data) SalesRank_Column.appendChild(SalesRank90_Data);
     if (SalesRank180_Data) SalesRank_Column.appendChild(SalesRank180_Data);
@@ -65,15 +66,15 @@ const UI_Render = (data: finalData): void => {
     const PriceAvg_Column = createColumn("Price Average", "#9b59b647");
     const PriceAvg90_Data = createKeyValue({
       key: "90 Days",
-      value: `$${(data.avgPrice90 / 100).toFixed(2)}`,
+      value: `$${numberWithCommas((data.avgPrice90 / 100).toFixed(2))}`,
     });
     const PriceAvg180_Data = createKeyValue({
       key: "180 Days",
-      value: `$${(data.avgPrice180 / 100).toFixed(2)}`,
+      value: `$${numberWithCommas((data.avgPrice180 / 100).toFixed(2))}`,
     });
     const PriceAvg_Data = createKeyValue({
       key: "Average Price",
-      value: `$${(data.avgPrice / 100).toFixed(2)}`,
+      value: `$${numberWithCommas((data.avgPrice / 100).toFixed(2))}`,
     });
     if (PriceAvg90_Data) PriceAvg_Column.appendChild(PriceAvg90_Data);
     if (PriceAvg180_Data) PriceAvg_Column.appendChild(PriceAvg180_Data);
