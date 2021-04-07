@@ -13,15 +13,13 @@ export const createContainer = (): HTMLDivElement => {
   return Container;
 };
 
-export const createColumn = (): HTMLDivElement => {
-  const Column = document.createElement("div");
-  Column.className = "column";
-  return Column;
-};
-
-export const createColumn2 = (name: string): HTMLDivElement => {
+export const createColumn = (
+  name: string,
+  backgroundColor: string
+): HTMLDivElement => {
   const Column = document.createElement("div");
   Column.className = "column2";
+  Column.style.backgroundColor = backgroundColor;
 
   const Name = document.createElement("span");
   Name.innerText = `${name}`;
@@ -34,29 +32,7 @@ export const createKeyValue = (
   data: keyValueData
 ): HTMLParagraphElement | null => {
   const Container = document.createElement("p");
-  const Key = document.createElement("strong");
-  Key.innerText = `${data.key} :`;
-  Container.appendChild(Key);
-
-  const Value = document.createElement("a");
-  Value.innerText = data.value as string;
-  Value.addEventListener("click", () => {
-    navigator.clipboard.writeText(data.value as string).then(
-      () => {
-        // BUTTON.innerText = "Copied";
-      },
-      () => console.log("Copy failed")
-    );
-  });
-  Container.appendChild(Value);
-  return Container;
-};
-
-export const createKeyValue2 = (
-  data: keyValueData
-): HTMLParagraphElement | null => {
-  const Container = document.createElement("p");
-  const Key = document.createElement("span");
+  const Key = document.createElement("b");
   Key.innerText = `${data.key}`;
   Container.appendChild(Key);
 

@@ -1,11 +1,5 @@
 import "../css/content.css";
-import {
-  createColumn,
-  createColumn2,
-  createContainer,
-  createKeyValue,
-  createKeyValue2,
-} from "./component";
+import { createColumn, createContainer, createKeyValue } from "./component";
 import { finalData } from "../utils/model";
 
 const UI_Render = (data: finalData): void => {
@@ -15,45 +9,50 @@ const UI_Render = (data: finalData): void => {
     const Container = createContainer();
 
     // ASIN Column
-    const ASIN_Column = createColumn2("Basic Info");
-    const ASIN_Data = createKeyValue2({ key: "ASIN", value: data.ASIN });
-    const TotalFBA_Data = createKeyValue2({
+    const ASIN_Column = createColumn("Basic Info", "#81ecec6b");
+    const ASIN_Data = createKeyValue({ key: "ASIN", value: data.ASIN });
+
+    const Total_Offer = createKeyValue({
+      key: "Total Offer",
+      value: data.totalOffer,
+    });
+
+    const Total_Amazon = createKeyValue({
+      key: "Amazon",
+      value: data.totalAmazon,
+    });
+
+    const TotalFBA_Data = createKeyValue({
       key: "Total FBA",
       value: data.totalFBA,
     });
-    const TotalFBM_Data = createKeyValue2({
+    const TotalFBM_Data = createKeyValue({
       key: "Total FBM",
       value: data.totalFBM,
     });
     if (ASIN_Data) ASIN_Column.appendChild(ASIN_Data);
+    if (Total_Offer) ASIN_Column.appendChild(Total_Offer);
+    if (Total_Amazon) ASIN_Column.appendChild(Total_Amazon);
     if (TotalFBM_Data) ASIN_Column.appendChild(TotalFBM_Data);
     if (TotalFBA_Data) ASIN_Column.appendChild(TotalFBA_Data);
     Container.appendChild(ASIN_Column);
 
-    // // Total Seller Column
-    // const TotalSeller_Column = createColumn();
-    // const TotalFBA_Data = createKeyValue({ key: "FBA", value: data.totalFBA });
-    // const TotalFBM_Data = createKeyValue({ key: "FBM", value: data.totalFBM });
-    // if (TotalFBA_Data) TotalSeller_Column.appendChild(TotalFBA_Data);
-    // if (TotalFBM_Data) TotalSeller_Column.appendChild(TotalFBM_Data);
-    // Container.appendChild(TotalSeller_Column);
-
     // Sales Rank Column
-    const SalesRank_Column = createColumn2("Sales Rank");
-    const SalesRank90_Data = createKeyValue2({
-      key: "90 days",
+    const SalesRank_Column = createColumn("Sales Rank", "#2ecc7159");
+    const SalesRank90_Data = createKeyValue({
+      key: "90 Days",
       value: data.avgSalesRank90,
     });
-    const SalesRank180_Data = createKeyValue2({
-      key: "180 days",
+    const SalesRank180_Data = createKeyValue({
+      key: "180 Days",
       value: data.avgSalesRank180,
     });
-    const SalesRankAvg_Data = createKeyValue2({
-      key: "average",
+    const SalesRankAvg_Data = createKeyValue({
+      key: "Average",
       value: data.avgSalesRank,
     });
-    const SalesRankDrop_Data = createKeyValue2({
-      key: "drop (30)",
+    const SalesRankDrop_Data = createKeyValue({
+      key: "Drop (30)",
       value: data.salesRankDrops30,
     });
     if (SalesRank90_Data) SalesRank_Column.appendChild(SalesRank90_Data);
@@ -63,18 +62,18 @@ const UI_Render = (data: finalData): void => {
     Container.appendChild(SalesRank_Column);
 
     // Price Average Column
-    const PriceAvg_Column = createColumn2("Price Average");
-    const PriceAvg90_Data = createKeyValue2({
-      key: "90 days",
-      value: (data.avgPrice90 / 100).toFixed(2),
+    const PriceAvg_Column = createColumn("Price Average", "#9b59b647");
+    const PriceAvg90_Data = createKeyValue({
+      key: "90 Days",
+      value: `$${(data.avgPrice90 / 100).toFixed(2)}`,
     });
-    const PriceAvg180_Data = createKeyValue2({
-      key: "180 days",
-      value: (data.avgPrice180 / 100).toFixed(2),
+    const PriceAvg180_Data = createKeyValue({
+      key: "180 Days",
+      value: `$${(data.avgPrice180 / 100).toFixed(2)}`,
     });
-    const PriceAvg_Data = createKeyValue2({
-      key: "average price",
-      value: (data.avgPrice / 100).toFixed(2),
+    const PriceAvg_Data = createKeyValue({
+      key: "Average Price",
+      value: `$${(data.avgPrice / 100).toFixed(2)}`,
     });
     if (PriceAvg90_Data) PriceAvg_Column.appendChild(PriceAvg90_Data);
     if (PriceAvg180_Data) PriceAvg_Column.appendChild(PriceAvg180_Data);
@@ -82,16 +81,16 @@ const UI_Render = (data: finalData): void => {
     Container.appendChild(PriceAvg_Column);
 
     // Lowest FBA and its Competitor Column
-    const FBA_Column = createColumn2("FBA Info");
-    const LowestFBA_Data = createKeyValue2({
+    const FBA_Column = createColumn("FBA Info", "#e74c3c4f");
+    const LowestFBA_Data = createKeyValue({
       key: "Lowest FBA",
-      value: (data.lowestFBA / 100).toFixed(2),
+      value: `$${(data.lowestFBA / 100).toFixed(2)}`,
     });
-    const Rise5cent_Data = createKeyValue2({
+    const Rise5cent_Data = createKeyValue({
       key: "5% Rise",
-      value: (data.rise5Percent / 100).toFixed(2),
+      value: `$${(data.rise5Percent / 100).toFixed(2)}`,
     });
-    const FBACompetitor_Data = createKeyValue2({
+    const FBACompetitor_Data = createKeyValue({
       key: "Competitor",
       value: data.totalcomp,
     });

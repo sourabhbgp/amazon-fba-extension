@@ -2,7 +2,7 @@
   width: fit-content;
   background: #f7f8fa;
   margin-bottom: 8px;
-  border: 1px solid #81ecec;
+  border: 1px solid #ccc;
   display: flex;
 }
 #fba-container div.column {
@@ -22,13 +22,12 @@
   margin: 0;
   margin-right: 6px;
   display: flex;
-  border-right: 1px solid #81ecec;
+  border-right: 1px solid #ccc;
   border-top: none;
   padding: 8px;
   font-size: 14px;
   flex-flow: column;
   align-items: flex-start;
-  background: #81ecec6b;
 }
 
 #fba-container div.column2:last-child {
@@ -49,7 +48,7 @@
   margin: 0;
   /* border-left: 1px solid #ccc; */
   display: flex;
-  flex-flow: column-reverse;
+  flex-flow: column;
 }
 
 #fba-container div.column2 p > a {
@@ -61,12 +60,13 @@
   border-right: 0;
 }
 
-#fba-container div.column2 p > span {
+#fba-container div.column2 p > b {
   padding-right: 4px;
-  color: #666;
+  color: #555;
   width: fit-content;
   min-width: fit-content;
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 /*  ---- */

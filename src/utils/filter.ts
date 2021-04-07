@@ -14,11 +14,10 @@ export const getOfferData = (
   data: Array<offer>,
   statsData: stats
 ): finalOffer => {
-  let totalFBA = filter(
-    data,
-    (d) => (d.isFBA && d.condition === 1) || d.isAmazon
-  );
+  let totalFBA = filter(data, (d) => d.isFBA && d.condition === 1);
   let totalFBM = statsData.offerCountFBM;
+
+  let totalAmazon = filter(data, (d) => d.isAmazon);
 
   let lowestFBA: number = 0;
   let totalcomp: number = 0;
@@ -44,6 +43,8 @@ export const getOfferData = (
     });
 
     return {
+      totalAmazon: totalAmazon.length,
+      totalOffer: totalAmazon.length + totalFBA.length + totalFBM,
       totalFBM,
       totalFBA: totalFBA.length,
       lowestFBA,
@@ -52,6 +53,8 @@ export const getOfferData = (
     };
   } else
     return {
+      totalAmazon: totalAmazon.length,
+      totalOffer: totalAmazon.length + totalFBA.length + totalFBM,
       totalFBM,
       totalFBA: 0,
       rise5Percent: 0,

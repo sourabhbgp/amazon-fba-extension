@@ -14,6 +14,8 @@ export interface stats {
 }
 
 export interface finalOffer {
+  totalOffer: number;
+  totalAmazon: number;
   totalFBM: number;
   totalFBA: number;
   lowestFBA: number;
