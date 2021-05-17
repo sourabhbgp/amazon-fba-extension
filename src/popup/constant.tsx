@@ -1,4 +1,4 @@
-const BASE_URL = "http://157.245.101.160:4000";
+const BASE_URL = "https://backend-vj6l2.ondigitalocean.app";
 
 // const BASE_URL = "http://localhost:4000/api/panel";
 
