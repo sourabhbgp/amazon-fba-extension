@@ -2,8 +2,6 @@ import { getFilteredData } from "../utils/filter";
 import { isAmazonProductUrl, isAmazonCOM } from "../utils/helper";
 import { getASINfromURL } from "../utils/scrap";
 
-console.log("background js");
-
 let current_url: string;
 const KEEPA_API = "https://api.keepa.com";
 // const KEEPA_PRIVATE_KEY =
@@ -16,7 +14,7 @@ const DOMAIN_KEY = 1;
 const getKeepaProductData = async (asin: string) => {
   try {
     const response = await fetch(
-      `${KEEPA_API}/product?key=${KEEPA_PRIVATE_KEY}&domain=${DOMAIN_KEY}&asin=${asin}&stats=180&offers=40&only-live-offers=1&buybox=1`
+      `${KEEPA_API}/product?key=${KEEPA_PRIVATE_KEY}&domain=${DOMAIN_KEY}&asin=${asin}&stats=180`
     );
     if (response.ok) return await response.json();
   } catch (err) {

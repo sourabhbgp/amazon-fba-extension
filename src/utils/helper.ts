@@ -47,3 +47,8 @@ export const isAmazonCOM = (e: string): boolean => {
 export const numberWithCommas = (x: number | string) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
+
+export const extractNumber = (data: string) => {
+  if (data) return Number(data.replace("$", "").trim());
+  return 0;
+};
