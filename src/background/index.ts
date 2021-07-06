@@ -5,10 +5,10 @@ import { getASINfromURL } from "../utils/scrap";
 let current_url: string;
 const KEEPA_API = "https://api.keepa.com";
 // const KEEPA_PRIVATE_KEY =
-//   "9dd96r1pbi6d686ucbg1p888311v158tbq4bfugggjj0a9khic62nlhldcte8tr5";
+//   "9dd96r1pbi6d686ucbg1p888311v158tbq4bfugggjj0a9khic";
 
 const KEEPA_PRIVATE_KEY =
-  "2ml9p5fd5trs4tephqpm2j588a9gtnjs98u0fanc187e4r9v4dra7p67ub6nqjbp";
+  "2ml9p5fd5trs4tephqpm2j588a9gtnjs98u0fanc187e4";
 const DOMAIN_KEY = 1;
 
 const getKeepaProductData = async (asin: string) => {
